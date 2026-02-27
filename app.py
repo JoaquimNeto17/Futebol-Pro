@@ -50,18 +50,18 @@ TEAM_BADGES = {
     "EC Vitória": "https://logodetimes.com/wp-content/uploads/vitoria.png"
 }
 
-# Links das imagens dos títulos
+
 TROPHY_IMAGES = {
-    "Copa Libertadores": "https://www.palmeiras.com.br/wp-content/uploads/2019/08/libertadores-galeria-de-titulos.png",
-    "Campeonato Brasileiro": "https://www.palmeiras.com.br/wp-content/uploads/2019/08/06.png",
-    "Copa do Brasil": "https://www.palmeiras.com.br/wp-content/uploads/2019/08/02-1.png",
-    "Supercopa do Brasil": "https://www.palmeiras.com.br/wp-content/uploads/2023/01/Supercopa-do-Brasil-2023-PNG.png",
-    "Recopa Sul-Americana": "https://www.palmeiras.com.br/wp-content/uploads/2022/03/recopa.png",
-    "Mundial de Clubes": "https://i.pinimg.com/originals/8f/cf/62/8fcf62853f18cde309c1a6a1d6e2f625.png",
-    "Copa Sul-Americana": "https://cdn.conmebol.com/wp-content/uploads/2015/07/logo-sudamericana-2015-300px-2_1.jpg",
-    "Copa Mercosul": "https://www.verdazzo.com.br/wp-content/uploads/2020/06/1998-mercosul.png",
-    "Copa Conmebol": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVXDNspIf01T6UJmey6oOKa-ERdXasc_5ifg&s",
-    "Supercopa Libertadores": "https://junior-jade-xacywjlwml.edgeone.app/trofeu_supercopa_libertadores-removebg-preview.png"
+    "Copa Libertadores": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Trofeo_Libertadores_2004-2008.png/60px-Trofeo_Libertadores_2004-2008.png",
+    "Campeonato Brasileiro": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/BrasileiraoA2014-.png/60px-BrasileiraoA2014-.png",
+    "Copa do Brasil": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/CopadoBrasil2013-.png/120px-CopadoBrasil2013-.png",
+    "Supercopa do Brasil": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/SupercopadoBrasil2020-.png/120px-SupercopadoBrasil2020-.png",
+    "Recopa Sul-Americana": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/RecopaSul-Americana1990-97-2003-.png/120px-RecopaSul-Americana1990-97-2003-.png",
+    "Mundial de Clubes": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Coppa_Del_Mondo_per_Club.png/60px-Coppa_Del_Mondo_per_Club.png",
+    "Copa Sul-Americana": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/CopaSulamericana2002-.png/60px-CopaSulamericana2002-.png",
+    "Copa Mercosul": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Copa_Mercosul.png/60px-Copa_Mercosul.png",
+    "Copa Conmebol": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/CopaCnmbl1992-1999.png/60px-CopaCnmbl1992-1999.png",
+    "Supercopa Libertadores": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/SupercopaLibertadores1988-1997.png/60px-SupercopaLibertadores1988-1997.png"
 }
 
 # Cores oficiais aproximadas dos times
