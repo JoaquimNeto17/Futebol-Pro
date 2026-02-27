@@ -58,9 +58,9 @@ TROPHY_IMAGES = {
     "Supercopa do Brasil": "https://www.palmeiras.com.br/wp-content/uploads/2023/01/Supercopa-do-Brasil-2023-PNG.png",
     "Recopa Sul-Americana": "https://www.palmeiras.com.br/wp-content/uploads/2022/03/recopa.png",
     "Mundial de Clubes": "https://i.pinimg.com/originals/8f/cf/62/8fcf62853f18cde309c1a6a1d6e2f625.png",
-    "Copa Sul-Americana": "https://worried-lime-d3mky6noyh.edgeone.app/5b8ee48fc70fd96d67147d6c59658ef6-removebg-preview.png",
+    "Copa Sul-Americana": "https://cdn.conmebol.com/wp-content/uploads/2015/07/logo-sudamericana-2015-300px-2_1.jpg",
     "Copa Mercosul": "https://www.verdazzo.com.br/wp-content/uploads/2020/06/1998-mercosul.png",
-    "Copa Conmebol": "https://realistic-turquoise-hrkqjj8wlv.edgeone.app/images-removebg-preview%20(2).png",
+    "Copa Conmebol": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVXDNspIf01T6UJmey6oOKa-ERdXasc_5ifg&s",
     "Supercopa Libertadores": "https://junior-jade-xacywjlwml.edgeone.app/trofeu_supercopa_libertadores-removebg-preview.png"
 }
 
