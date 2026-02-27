@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scout Brasil</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" type="image/x-icon" href="/static/img/logo.png">
+</head>
+<body>
+    <header class="header">
+        <h1>SCOUT BRASIL</h1>
+        <p>Times Série A e B</p>
+    </header>
+
+    <div class="container">
+        <!-- Seção de pesquisa -->
+        <div class="search-section">
+            <h2 class="search-title">🔍 PESQUISAR TIME</h2>
+            <form method="POST" class="search-box">
+                <input type="text" name="team_name" class="search-input" placeholder="Digite o nome do time..." required>
+                <button type="submit" class="search-btn">BUSCAR</button>
+            </form>
+            <p style="text-align: center; color: #aaa; margin-top: 15px;">Ex: Flamengo, Palmeiras, Corinthians, Internacional...</p>
+        </div>
+
+        <!-- Resultado do time pesquisado -->
+        {% if team %}
+        <div class="team-result" 
+             data-team="{{ team.strTeam }}"
+             data-founded="{{ team.intFormedYear }}"
+             data-country="{{ team.strCountry }}">
+            
+            <div class="team-header">
+                <div class="team-crest">
+                    <img src="{{ team_image }}" alt="{{ team.strTeam }}" onerror="this.src='https://logodetimes.com/wp-content/uploads/placeholder.png'">
+                </div>
+                <div>
+                    <h2 class="team-name">{{ team.strTeam }}</h2>
+                    <div class="team-details">
+                        <p><strong>🏆 Fundação:</strong> {{ team.intFormedYear if team.intFormedYear else 'N/A' }}</p>
+                        <p><strong>🏟️ Estádio:</strong> {{ team.strStadium if team.strStadium else 'N/A' }}</p>
+                        <p><strong>🌍 País:</strong> {{ team.strCountry }}</p>
+                        <p><strong>📋 Liga:</strong> {{ team.strLeague if team.strLeague else 'Brasileirão' }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Descrição -->
+            <div class="team-description">
+                <p>{{ team_description }}</p>
+            </div>
+
+            <!-- Grid -->
+            <div class="content-grid">
+                <!-- Jogos -->
+                <div class="games-section">
+                    <h3 class="section-title">📅 ÚLTIMOS JOGOS</h3>
+                    {% if games %}
+                        {% for game in games %}
+                        <div class="game-card">
+                            <p class="match">
+                                {{ game.strHomeTeam }} 
+                                <strong>{{ game.intHomeScore if game.intHomeScore else '0' }} x {{ game.intAwayScore if game.intAwayScore else '0' }}</strong> 
+                                {{ game.strAwayTeam }}
+                            </p>
+                            <div class="game-date">{{ game.dateEvent if game.dateEvent else 'Data não disponível' }}</div>
+                            {% if game.strLeague %}
+                            <div class="game-competition">{{ game.strLeague }}</div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="no-data">Nenhum jogo encontrado</p>
+                    {% endif %}
+                </div>
+
+                <!-- Títulos -->
+                <div class="titles-section">
+                    <h3 class="section-title">🏆 TÍTULOS</h3>
+                    {% if titles %}
+                        <div class="titles-grid">
+                            {% for title in titles %}
+                            <div class="title-card">
+                                <div class="title-image">
+                                    <img src="{{ title.imagem }}" alt="{{ title.nome }}">
+                                </div>
+                                <h4 class="title-name">{{ title.nome }}</h4>
+                                <span class="title-year">{{ title.ano }}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="no-data">Nenhum título cadastrado</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="team-result" style="text-align: center; padding: 60px;">
+            <p style="font-size: 3rem;">⚽</p>
+            <p style="font-size: 1.5rem;">Pesquise um time para ver as informações</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Scroll Progress Bar -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<script>
+// Reveal on scroll
+function revealOnScroll() {
+    const elements = document.querySelectorAll('.team-result, .games-section, .titles-section');
+    
+    elements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        
+        if (elementTop < windowHeight - 100) {
+            element.classList.add('revealed');
+        }
+    });
+}
+
+// Scroll progress
+function updateScrollProgress() {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    document.getElementById('scrollProgress').style.width = scrolled + '%';
+}
+
+window.addEventListener('scroll', () => {
+    revealOnScroll();
+    updateScrollProgress();
+});
+
+window.addEventListener('load', revealOnScroll);
+</script>
+
+    <footer class="footer">
+        <p>Desenvolvido por Joaquim</p>
+    </footer>
+</body>
+</html>
