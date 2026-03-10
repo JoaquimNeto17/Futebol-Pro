@@ -50,9 +50,8 @@ TEAM_BADGES = {
     "EC Vitória": "https://logodetimes.com/wp-content/uploads/vitoria.png"
 }
 
-
 TROPHY_IMAGES = {
-    "Copa Libertadores": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Trofeo_Libertadores_2004-2008.png/60px-Trofeo_Libertadores_2004-2008.png",
+    "Copa Libertadores": "https://upload.wikimedia.org/wikipedia/commons/8/83/Trofeo_de_Copa_Libertadores_Sub-20.png",
     "Campeonato Brasileiro": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/BrasileiraoA2014-.png/60px-BrasileiraoA2014-.png",
     "Copa do Brasil": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/CopadoBrasil2013-.png/120px-CopadoBrasil2013-.png",
     "Supercopa do Brasil": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/SupercopadoBrasil2020-.png/120px-SupercopadoBrasil2020-.png",
@@ -106,7 +105,7 @@ TEAM_TITLES = {
     "Flamengo": {
         "titles": [
             {"nome": "Mundial de Clubes", "ano": "1981", "imagem": TROPHY_IMAGES["Mundial de Clubes"]},
-            {"nome": "Copa Libertadores", "ano": "1981, 2019, 2022" "2025", "imagem": TROPHY_IMAGES["Copa Libertadores"]},
+            {"nome": "Copa Libertadores", "ano": "1981, 2019, 2022, 2025", "imagem": TROPHY_IMAGES["Copa Libertadores"]},
             {"nome": "Copa Mercosul", "ano": "1999", "imagem": TROPHY_IMAGES["Copa Mercosul"]},
             {"nome": "Campeonato Brasileiro", "ano": "1980, 1982, 1983, 1992, 2009, 2019, 2020", "imagem": TROPHY_IMAGES["Campeonato Brasileiro"]},
             {"nome": "Copa do Brasil", "ano": "1990, 2006, 2013, 2022", "imagem": TROPHY_IMAGES["Copa do Brasil"]},
@@ -313,6 +312,16 @@ def suggest_teams():
             suggestions.append(team_name)
     
     return jsonify(suggestions[:5])  # Limita a 5 sugestões
+
+@app.route("/tabela2026")
+def tabela2026():
+    """Página da tabela do Brasileirão Série A 2026"""
+    return render_template("tabela2026.html")
+
+@app.route("/tabela2026_serie_b")
+def tabela2026_serie_b():
+    """Página da tabela do Brasileirão Série B 2026"""
+    return render_template("tabela2026_serie_b.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -119,6 +119,11 @@
         --brazil-green: #00c44b;
         --brazil-yellow: #ffe633;
         --brazil-blue: #0044b3;
+        
+        /* Ajustes semânticos para modo escuro */
+        --bg-primary: var(--white);
+        --bg-secondary: var(--gray-100);
+        --text-primary: var(--gray-900);
     }
     
     img {
@@ -404,16 +409,16 @@ body {
     margin-bottom: var(--space-xl);
     padding-bottom: var(--space-xl);
     border-bottom: 2px solid var(--black);
-    background: var(--gray-50);
+    background: var(--bg-secondary);
     padding: var(--space-xl);
 }
 
-/* ===== LOGO/TIMES - NOVA ANIMAÇÃO E SEM FUNDO ===== */
+/* ===== LOGO/TIMES - ANIMAÇÃO E FUNDO TRANSPARENTE ===== */
 .team-crest {
     width: 140px;
     height: 140px;
     border-radius: 50%;
-    background: transparent; /* Fundo transparente */
+    background: transparent;
     border: 2px solid var(--black);
     display: flex;
     align-items: center;
@@ -425,7 +430,6 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Efeito de brilho giratório */
 .team-crest::before {
     content: '';
     position: absolute;
@@ -446,7 +450,6 @@ body {
     animation: gradientRotate 3s linear infinite;
 }
 
-/* Anel pulsante */
 .team-crest::after {
     content: '';
     position: absolute;
@@ -466,7 +469,6 @@ body {
     animation: rotate 1.5s linear infinite;
 }
 
-/* Hover effects */
 .team-crest:hover {
     transform: scale(1.1) rotate(5deg);
     border-color: transparent;
@@ -485,17 +487,15 @@ body {
     transform: scale(1.1);
 }
 
-/* Imagem do logo */
 .team-crest img {
     width: 100%;
     height: 100%;
     object-fit: contain;
     transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));
-    background: transparent; /* Garantir fundo transparente */
+    background: transparent;
 }
 
-/* Efeito 3D no hover */
 .team-crest:hover img {
     transform: scale(1.15) rotate(-3deg);
     filter: 
@@ -503,7 +503,6 @@ body {
         drop-shadow(0 0 5px rgba(255, 223, 0, 0.5));
 }
 
-/* Animação de entrada suave */
 @keyframes crestAppear {
     0% {
         opacity: 0;
@@ -522,7 +521,6 @@ body {
     animation: crestAppear 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
-/* Variação para diferentes delays */
 .team-crest:nth-child(1) { animation-delay: 0.1s; }
 .team-crest:nth-child(2) { animation-delay: 0.2s; }
 .team-crest:nth-child(3) { animation-delay: 0.3s; }
@@ -595,7 +593,7 @@ body {
     margin-bottom: var(--space-xl);
     border: 2px solid var(--black);
     line-height: 1.8;
-    color: var(--text-secondary);
+    color: var(--text-primary);
     font-weight: 300;
     position: relative;
 }
@@ -817,7 +815,7 @@ body {
     left: 100%;
 }
 
-/* ===== TITLE IMAGE - SEM FUNDO ===== */
+/* ===== TITLE IMAGE - FUNDO TRANSPARENTE ===== */
 .title-image {
     width: 80px;
     height: 80px;
@@ -828,7 +826,7 @@ body {
     padding: var(--space-md);
     transition: var(--transition-base);
     border-radius: 50%;
-    background: transparent; /* Fundo transparente */
+    background: transparent;
     position: relative;
 }
 
@@ -838,7 +836,7 @@ body {
     object-fit: contain;
     transition: var(--transition-base);
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-    background: transparent; /* Garantir fundo transparente */
+    background: transparent;
 }
 
 .title-card:hover .title-image img {
@@ -967,7 +965,7 @@ body {
     background: var(--black);
 }
 
-/* ===== NOVAS ANIMAÇÕES ===== */
+/* ===== ANIMAÇÕES ===== */
 @keyframes gradientRotate {
     0% {
         background-position: 0% 0%;
@@ -1010,7 +1008,6 @@ body {
     }
 }
 
-/* Animações existentes mantidas */
 @keyframes fadeIn {
     from {
         opacity: 0;

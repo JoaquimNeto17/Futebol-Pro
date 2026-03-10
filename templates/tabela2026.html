@@ -1,0 +1,1664 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brasileirão Série A 2026 - Tabela Completa | Scout Brasil</title>
+    
+    <!-- CSS Principal -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
+    <!-- CSS Específico -->
+    <style>
+        /* ===== VARIÁVEIS ===== */
+        :root {
+            --table-header-bg: var(--gray-900);
+            --table-header-text: var(--white);
+            --table-row-odd: var(--gray-50);
+            --table-row-even: var(--white);
+            --table-border: var(--gray-300);
+            --table-highlight: var(--brazil-green);
+        }
+
+        /* ===== RESET ===== */
+        body {
+            background: var(--white);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            flex: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--space-xl);
+        }
+
+        /* ===== HEADER SÉRIE A - VERDE E AMARELO ===== */
+        .page-header.serie-a {
+            background: linear-gradient(135deg, 
+                var(--brazil-green) 0%, 
+                #00b347 30%, 
+                var(--brazil-yellow) 70%, 
+                #ffd700 100%);
+            padding: var(--space-3xl) var(--space-xl);
+            text-align: center;
+            position: relative;
+            border-bottom: 4px solid var(--brazil-blue);
+            margin-bottom: var(--space-2xl);
+            color: var(--white);
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 39, 118, 0.3);
+        }
+
+        .header-bg-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(255,255,255,0.1) 0%, transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(255,255,255,0.1) 0%, transparent 40%),
+                repeating-linear-gradient(45deg, 
+                    rgba(255,255,255,0.05) 0px, 
+                    rgba(255,255,255,0.05) 2px, 
+                    transparent 2px, 
+                    transparent 10px);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header-trophy {
+            font-size: 5rem;
+            margin-bottom: var(--space-md);
+            animation: trophyFloat 3s ease-in-out infinite;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
+            display: inline-block;
+            text-shadow: 0 0 20px var(--brazil-yellow), 0 0 40px rgba(255,255,255,0.5);
+        }
+
+        @keyframes trophyFloat {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-10px) rotate(5deg);
+            }
+            75% {
+                transform: translateY(-5px) rotate(-5deg);
+            }
+        }
+
+        .header-title {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: var(--space-sm);
+            text-transform: uppercase;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .title-line {
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 8px;
+            opacity: 0.9;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            color: rgba(255,255,255,0.95);
+        }
+
+        .title-highlight {
+            font-size: 5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, 
+                rgba(255,255,255,1) 0%, 
+                rgba(255,255,255,0.9) 50%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px var(--brazil-yellow), 0 0 40px rgba(255,223,0,0.5);
+            position: relative;
+            display: inline-block;
+            padding: 0 var(--space-lg);
+            letter-spacing: 2px;
+        }
+
+        .title-highlight::before,
+        .title-highlight::after {
+            content: '★';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            opacity: 0.7;
+            animation: starPulse 2s ease-in-out infinite;
+            color: var(--brazil-yellow);
+            text-shadow: 0 0 10px var(--brazil-green);
+        }
+
+        .title-highlight::before {
+            left: -10px;
+        }
+
+        .title-highlight::after {
+            right: -10px;
+        }
+
+        @keyframes starPulse {
+            0%, 100% {
+                opacity: 0.7;
+                transform: translateY(-50%) scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(-50%) scale(1.2);
+            }
+        }
+
+        .header-subtitle {
+            font-size: var(--font-size-lg);
+            font-weight: 400;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-bottom: var(--space-xl);
+            padding: var(--space-sm) var(--space-xl);
+            display: inline-block;
+            background: rgba(0,0,0,0.2);
+            backdrop-filter: blur(5px);
+            border-radius: 40px;
+            border: 1px solid var(--brazil-yellow);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            color: rgba(255,255,255,0.95);
+        }
+
+        .header-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-md);
+            background: var(--white);
+            padding: var(--space-sm) var(--space-xl);
+            border-radius: 50px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 20;
+            border: 2px solid var(--brazil-blue);
+        }
+
+        .badge-text {
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--brazil-green);
+        }
+
+        .badge-year {
+            font-family: var(--font-display);
+            font-size: var(--font-size-2xl);
+            font-weight: 700;
+            padding: var(--space-xs) var(--space-lg);
+            border-radius: 40px;
+            color: var(--white);
+            background: linear-gradient(135deg, var(--brazil-green), var(--brazil-blue));
+            box-shadow: 0 4px 10px rgba(0,39,118,0.5);
+        }
+
+        .header-flags {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: var(--space-xs);
+            z-index: 5;
+            opacity: 0.6;
+        }
+
+        .flag {
+            width: 60px;
+            height: 30px;
+            clip-path: polygon(0% 0%, 100% 0%, 80% 100%, 20% 100%);
+            transform: skewX(-10deg);
+            animation: flagWave 3s ease-in-out infinite;
+        }
+
+        .flag-green {
+            background: linear-gradient(135deg, var(--brazil-green), #00b347);
+            animation-delay: 0s;
+        }
+
+        .flag-yellow {
+            background: linear-gradient(135deg, var(--brazil-yellow), #ffd700);
+            animation-delay: 0.2s;
+        }
+
+        .flag-blue {
+            background: linear-gradient(135deg, var(--brazil-blue), #0044b3);
+            animation-delay: 0.4s;
+        }
+
+        @keyframes flagWave {
+            0%, 100% {
+                transform: skewX(-10deg) translateY(0);
+            }
+            25% {
+                transform: skewX(-10deg) translateY(-5px);
+            }
+            75% {
+                transform: skewX(-10deg) translateY(-3px);
+            }
+        }
+
+        .page-header::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, 
+                rgba(255,255,255,0.3) 0%, 
+                transparent 70%);
+            opacity: 0.3;
+            animation: rotate 20s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* ===== NAVEGAÇÃO COM LOGOS ===== */
+        .nav-bar {
+            background: var(--white);
+            border-bottom: 2px solid var(--black);
+            padding: var(--space-md) 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--space-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--space-md);
+        }
+
+        .nav-logo {
+            font-family: var(--font-display);
+            font-size: var(--font-size-xl);
+            font-weight: 500;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--black);
+            border: 2px solid var(--black);
+            padding: var(--space-xs) var(--space-lg);
+            transition: var(--transition-base);
+        }
+
+        .nav-logo:hover {
+            background: var(--black);
+            color: var(--white);
+            transform: scale(1.05);
+        }
+
+        .league-menu {
+            display: flex;
+            gap: var(--space-lg);
+            align-items: center;
+        }
+
+        .league-link {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-lg);
+            border: 2px solid var(--black);
+            text-decoration: none;
+            transition: var(--transition-base);
+            background: var(--white);
+        }
+
+        .league-link.serie-a {
+            border-color: var(--brazil-green);
+            background: var(--brazil-green);
+        }
+
+        .league-link.serie-a .league-name {
+            color: var(--white);
+        }
+
+        .league-link.serie-b {
+            border-color: var(--brazil-blue);
+        }
+
+        .league-link.serie-b:hover {
+            background: var(--brazil-blue);
+            border-color: var(--brazil-blue);
+        }
+
+        .league-link.serie-b:hover .league-name {
+            color: var(--white);
+        }
+
+        .league-logo {
+            width: 30px;
+            height: 30px;
+            object-fit: contain;
+        }
+
+        .league-name {
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            font-weight: 500;
+            color: var(--black);
+            transition: var(--transition-base);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--space-lg);
+            align-items: center;
+        }
+
+        .nav-link {
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--gray-600);
+            letter-spacing: 2px;
+            transition: var(--transition-fast);
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--black);
+        }
+
+        .nav-link i {
+            margin-right: var(--space-xs);
+            color: var(--brazil-green);
+        }
+
+        /* ===== INFO CARDS EM UMA LINHA ===== */
+        .info-cards-row {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: var(--space-md);
+            margin: var(--space-2xl) 0;
+            width: 100%;
+            overflow-x: auto;
+            padding: var(--space-xs) 0 var(--space-lg);
+            scrollbar-width: thin;
+            scrollbar-color: var(--brazil-green) var(--gray-200);
+        }
+
+        .info-cards-row::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .info-cards-row::-webkit-scrollbar-track {
+            background: var(--gray-200);
+            border-radius: 10px;
+        }
+
+        .info-cards-row::-webkit-scrollbar-thumb {
+            background: linear-gradient(90deg, var(--brazil-green), var(--brazil-yellow));
+            border-radius: 10px;
+        }
+
+        .info-card-horizontal {
+            flex: 1 1 250px;
+            min-width: 240px;
+            background: var(--white);
+            border: 2px solid var(--black);
+            padding: var(--space-lg) var(--space-md);
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: var(--shadow-md);
+            cursor: pointer;
+        }
+
+        .info-card-horizontal:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: var(--brazil-blue);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15), 
+                        0 0 0 3px var(--brazil-yellow),
+                        0 0 20px rgba(0,156,59,0.3);
+        }
+
+        .info-card-icon {
+            font-size: 3rem;
+            animation: floatCard 3s ease-in-out infinite;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+            transition: all 0.3s ease;
+        }
+
+        .info-card-horizontal:hover .info-card-icon {
+            transform: scale(1.2) rotate(5deg);
+            animation: none;
+        }
+
+        .info-card-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-card-label {
+            font-family: var(--font-mono);
+            font-size: var(--font-size-xs);
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 2px;
+        }
+
+        .info-card-value {
+            font-family: var(--font-display);
+            font-size: 2.8rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 2px;
+            background: linear-gradient(135deg, 
+                var(--brazil-blue) 0%, 
+                var(--brazil-green) 80%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .info-card-sub {
+            font-family: var(--font-mono);
+            font-size: var(--font-size-xs);
+            color: var(--gray-600);
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        .info-card-glow {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255,223,0,0.2), 
+                rgba(0,156,59,0.2), 
+                rgba(0,39,118,0.2), 
+                transparent);
+            transition: left 0.6s ease;
+            pointer-events: none;
+        }
+
+        .info-card-horizontal:hover .info-card-glow {
+            left: 100%;
+        }
+
+        .info-card-horizontal::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                var(--brazil-green), 
+                var(--brazil-yellow), 
+                var(--brazil-blue));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+            transform-origin: left;
+        }
+
+        .info-card-horizontal:hover::after {
+            transform: scaleX(1);
+        }
+
+        .info-card-horizontal:nth-child(1):hover .info-card-icon { color: var(--brazil-green); }
+        .info-card-horizontal:nth-child(2):hover .info-card-icon { color: var(--brazil-blue); }
+        .info-card-horizontal:nth-child(3):hover .info-card-icon { color: var(--brazil-yellow); }
+        .info-card-horizontal:nth-child(4):hover .info-card-icon { color: var(--brazil-green); }
+
+        /* ===== WIDGET SOFASCORE ===== */
+        .tabela-section {
+            margin: var(--space-2xl) 0;
+            position: relative;
+        }
+
+        .section-title-large {
+            font-size: var(--font-size-3xl);
+            font-weight: 400;
+            margin-bottom: var(--space-xl);
+            color: var(--black);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: var(--space-lg);
+        }
+
+        .section-title-large i {
+            font-style: normal;
+            color: var(--brazil-green);
+            font-size: var(--font-size-4xl);
+            animation: titleGlow 2s infinite;
+        }
+
+        .section-title-large::after {
+            content: '';
+            flex: 1;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                var(--brazil-green) 0%, 
+                var(--brazil-yellow) 50%, 
+                var(--brazil-blue) 100%);
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        .widget-container {
+            position: relative;
+            overflow: hidden;
+            border: 3px solid var(--black);
+            background: var(--white);
+            box-shadow: var(--shadow-xl);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin-bottom: var(--space-2xl);
+        }
+
+        .widget-container:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: var(--shadow-2xl), 0 0 30px var(--brazil-green);
+            border-color: var(--gray-800);
+        }
+
+        .widget-header {
+            background: var(--black);
+            color: var(--white);
+            padding: var(--space-md) var(--space-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--space-md);
+            border-bottom: 2px solid var(--gray-700);
+        }
+
+        .widget-title {
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .widget-title span {
+            background: var(--brazil-yellow);
+            color: var(--black);
+            padding: var(--space-xs) var(--space-md);
+            font-weight: 500;
+        }
+
+        .widget-update {
+            font-family: var(--font-mono);
+            font-size: var(--font-size-xs);
+            color: var(--gray-400);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .widget-update i {
+            color: var(--brazil-green);
+            animation: spin 2s linear infinite;
+        }
+
+        .sofascore-iframe {
+            width: 100% !important;
+            max-width: 768px !important;
+            height: 1123px !important;
+            display: block;
+            margin: 0 auto;
+            background: var(--white);
+        }
+
+        .widget-footer {
+            background: var(--gray-100);
+            border-top: 2px solid var(--black);
+            padding: var(--space-md) var(--space-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--space-md);
+            font-family: var(--font-mono);
+            font-size: var(--font-size-xs);
+        }
+
+        .sofascore-credits {
+            font-size: 12px;
+            font-family: var(--font-mono);
+            color: var(--gray-600);
+        }
+
+        .sofascore-link {
+            color: var(--brazil-green);
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .sofascore-link:hover {
+            text-decoration: underline;
+        }
+
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--white);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid var(--gray-300);
+            border-top-color: var(--brazil-green);
+            border-right-color: var(--brazil-yellow);
+            border-bottom-color: var(--brazil-blue);
+            border-radius: 50%;
+            animation: spinner 1s linear infinite;
+            margin-bottom: var(--space-lg);
+        }
+
+        .loading-text {
+            font-family: var(--font-mono);
+            font-size: var(--font-size-lg);
+            color: var(--gray-600);
+            letter-spacing: 4px;
+            animation: pulse 1.5s infinite;
+        }
+
+        .loading-text span {
+            background: linear-gradient(135deg, 
+                var(--brazil-green), 
+                var(--brazil-yellow), 
+                var(--brazil-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        /* ===== ESTATÍSTICAS HORIZONTAIS ===== */
+        .stats-section {
+            margin: var(--space-2xl) 0;
+        }
+
+        .stats-row {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: var(--space-md);
+            margin: var(--space-xl) 0;
+            width: 100%;
+            overflow-x: auto;
+            padding: var(--space-xs) 0 var(--space-lg);
+            scrollbar-width: thin;
+            scrollbar-color: var(--brazil-green) var(--gray-200);
+        }
+
+        .stats-row::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .stats-row::-webkit-scrollbar-track {
+            background: var(--gray-200);
+            border-radius: 10px;
+        }
+
+        .stats-row::-webkit-scrollbar-thumb {
+            background: linear-gradient(90deg, var(--brazil-green), var(--brazil-yellow));
+            border-radius: 10px;
+        }
+
+        .stat-card-horizontal {
+            flex: 1 1 250px;
+            min-width: 220px;
+            background: var(--white);
+            border: 2px solid var(--black);
+            padding: var(--space-lg) var(--space-md);
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: var(--shadow-md);
+            cursor: pointer;
+        }
+
+        .stat-card-horizontal:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: var(--brazil-blue);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15), 
+                        0 0 0 3px var(--brazil-yellow),
+                        0 0 20px rgba(0,156,59,0.3);
+        }
+
+        .stat-card-icon {
+            font-size: 2.8rem;
+            animation: floatCard 3s ease-in-out infinite;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+            transition: all 0.3s ease;
+        }
+
+        .stat-card-horizontal:hover .stat-card-icon {
+            transform: scale(1.2) rotate(5deg);
+            animation: none;
+        }
+
+        .stat-card-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-card-label {
+            font-family: var(--font-mono);
+            font-size: var(--font-size-xs);
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 2px;
+        }
+
+        .stat-card-value {
+            font-family: var(--font-display);
+            font-size: 2.8rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 2px;
+            background: linear-gradient(135deg, 
+                var(--brazil-blue) 0%, 
+                var(--brazil-green) 80%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-card-sub {
+            font-family: var(--font-mono);
+            font-size: var(--font-size-xs);
+            color: var(--gray-600);
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-card-glow {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255,223,0,0.2), 
+                rgba(0,156,59,0.2), 
+                rgba(0,39,118,0.2), 
+                transparent);
+            transition: left 0.6s ease;
+            pointer-events: none;
+        }
+
+        .stat-card-horizontal:hover .stat-card-glow {
+            left: 100%;
+        }
+
+        .stat-card-horizontal::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                var(--brazil-green), 
+                var(--brazil-yellow), 
+                var(--brazil-blue));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+            transform-origin: left;
+        }
+
+        .stat-card-horizontal:hover::after {
+            transform: scaleX(1);
+        }
+
+        .stat-card-horizontal:nth-child(1):hover .stat-card-icon { color: var(--brazil-green); }
+        .stat-card-horizontal:nth-child(2):hover .stat-card-icon { color: var(--brazil-blue); }
+        .stat-card-horizontal:nth-child(3):hover .stat-card-icon { color: var(--brazil-yellow); }
+        .stat-card-horizontal:nth-child(4):hover .stat-card-icon { color: var(--brazil-green); }
+
+        /* ===== TIME DA SEMANA ===== */
+        .sofascore-widget {
+            background: linear-gradient(135deg, #f5f5f5, #ffffff);
+        }
+
+        .sofascore-header {
+            background: linear-gradient(90deg, var(--brazil-green), #00b347);
+        }
+
+        .sofascore-container {
+            display: flex;
+            justify-content: center;
+            padding: var(--space-lg);
+            background: var(--white);
+        }
+
+        .totw-iframe {
+            display: block;
+            max-width: 700px;
+            width: 100%;
+            height: 598px;
+            border: 2px solid var(--gray-300);
+        }
+
+        /* ===== BOTÕES ===== */
+        .action-buttons {
+            display: flex;
+            gap: var(--space-md);
+            justify-content: center;
+            margin: var(--space-2xl) 0;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: var(--space-lg) var(--space-2xl);
+            background: transparent;
+            color: var(--black);
+            border: 2px solid var(--black);
+            font-weight: 500;
+            font-size: var(--font-size-base);
+            cursor: pointer;
+            transition: var(--transition-base);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: var(--black);
+            z-index: -1;
+            transition: height var(--transition-base);
+        }
+
+        .btn:hover::after {
+            height: 100%;
+        }
+
+        .btn:hover {
+            color: var(--white);
+        }
+
+        .btn-primary {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .btn-primary::after {
+            background: var(--brazil-green);
+        }
+
+        /* ===== FOOTER ===== */
+        .page-footer {
+            text-align: center;
+            padding: var(--space-xl);
+            margin-top: var(--space-3xl);
+            border-top: 2px solid var(--black);
+            color: var(--text-tertiary);
+            background: var(--white);
+            font-size: var(--font-size-sm);
+            font-weight: 300;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        .page-footer::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                var(--brazil-green), 
+                var(--brazil-yellow), 
+                var(--brazil-blue));
+            animation: gradientShift 3s ease infinite;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: var(--space-xl);
+            justify-content: center;
+            margin-bottom: var(--space-lg);
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: var(--gray-600);
+            text-decoration: none;
+            font-family: var(--font-mono);
+            font-size: var(--font-size-xs);
+            text-transform: uppercase;
+            transition: var(--transition-fast);
+        }
+
+        .footer-link:hover {
+            color: var(--brazil-green);
+        }
+
+        /* ===== ANIMAÇÕES ===== */
+        @keyframes floatCard {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-5px) rotate(2deg);
+            }
+            75% {
+                transform: translateY(3px) rotate(-2deg);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .info-card-horizontal {
+            animation: slideInRight 0.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        .info-card-horizontal:nth-child(1) { animation-delay: 0.1s; }
+        .info-card-horizontal:nth-child(2) { animation-delay: 0.2s; }
+        .info-card-horizontal:nth-child(3) { animation-delay: 0.3s; }
+        .info-card-horizontal:nth-child(4) { animation-delay: 0.4s; }
+
+        .stat-card-horizontal {
+            animation: slideInRight 0.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        .stat-card-horizontal:nth-child(1) { animation-delay: 0.1s; }
+        .stat-card-horizontal:nth-child(2) { animation-delay: 0.2s; }
+        .stat-card-horizontal:nth-child(3) { animation-delay: 0.3s; }
+        .stat-card-horizontal:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes spinner {
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes ballBounce {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-5px) rotate(-10deg);
+            }
+            75% {
+                transform: translateY(-3px) rotate(10deg);
+            }
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes titleGlow {
+            0%, 100% {
+                text-shadow: none;
+            }
+            50% {
+                text-shadow: 0 0 10px var(--brazil-green), 0 0 20px var(--brazil-yellow);
+            }
+        }
+
+        /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 1024px) {
+            .container {
+                padding: var(--space-lg);
+            }
+            
+            .section-title-large {
+                font-size: var(--font-size-2xl);
+            }
+            
+            .sofascore-iframe {
+                height: 1000px !important;
+            }
+            
+            .header-title {
+                font-size: 3.5rem;
+            }
+            
+            .title-line {
+                font-size: 2rem;
+                letter-spacing: 6px;
+            }
+            
+            .title-highlight {
+                font-size: 4rem;
+            }
+            
+            .title-highlight::before,
+            .title-highlight::after {
+                font-size: 1.5rem;
+            }
+            
+            .header-subtitle {
+                font-size: var(--font-size-base);
+                letter-spacing: 4px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .info-cards-row,
+            .stats-row {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .info-card-horizontal,
+            .stat-card-horizontal {
+                flex: 0 1 calc(50% - var(--space-md));
+                min-width: 200px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-header.serie-a {
+                padding: var(--space-2xl) var(--space-md);
+            }
+            
+            .header-title {
+                font-size: 2.5rem;
+            }
+            
+            .title-line {
+                font-size: 1.5rem;
+                letter-spacing: 4px;
+            }
+            
+            .title-highlight {
+                font-size: 3rem;
+            }
+            
+            .title-highlight::before,
+            .title-highlight::after {
+                font-size: 1.2rem;
+            }
+            
+            .header-trophy {
+                font-size: 4rem;
+            }
+            
+            .header-subtitle {
+                font-size: var(--font-size-sm);
+                letter-spacing: 3px;
+                padding: var(--space-xs) var(--space-lg);
+            }
+            
+            .header-badge {
+                flex-direction: column;
+                gap: var(--space-xs);
+                padding: var(--space-xs) var(--space-lg);
+            }
+            
+            .badge-text {
+                font-size: var(--font-size-xs);
+            }
+            
+            .badge-year {
+                font-size: var(--font-size-xl);
+            }
+            
+            .flag {
+                width: 40px;
+                height: 20px;
+            }
+            
+            .section-title-large {
+                font-size: var(--font-size-xl);
+                flex-wrap: wrap;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .league-menu {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .league-link {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .sofascore-iframe {
+                height: 900px !important;
+            }
+            
+            .totw-iframe {
+                height: 500px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .info-card-horizontal,
+            .stat-card-horizontal {
+                flex: 0 1 100%;
+            }
+            
+            .info-card-value,
+            .stat-card-value {
+                font-size: 2.4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header.serie-a {
+                padding: var(--space-xl) var(--space-md);
+            }
+            
+            .header-title {
+                font-size: 2rem;
+            }
+            
+            .title-line {
+                font-size: 1.2rem;
+                letter-spacing: 3px;
+            }
+            
+            .title-highlight {
+                font-size: 2.2rem;
+            }
+            
+            .title-highlight::before,
+            .title-highlight::after {
+                font-size: 1rem;
+            }
+            
+            .header-trophy {
+                font-size: 3rem;
+            }
+            
+            .header-subtitle {
+                font-size: var(--font-size-xs);
+                letter-spacing: 2px;
+            }
+            
+            .header-badge {
+                width: 90%;
+                margin: 0 auto;
+            }
+            
+            .flag {
+                width: 30px;
+                height: 15px;
+            }
+            
+            .action-buttons .btn {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .sofascore-iframe {
+                height: 800px !important;
+            }
+            
+            .totw-iframe {
+                height: 400px;
+            }
+            
+            .section-title-large {
+                font-size: var(--font-size-xl);
+                flex-wrap: wrap;
+                gap: var(--space-sm);
+            }
+            
+            .section-title-large i {
+                font-size: var(--font-size-3xl);
+            }
+        }
+
+        /* ===== MODO ESCURO ===== */
+        @media (prefers-color-scheme: dark) {
+            .info-card-horizontal,
+            .stat-card-horizontal {
+                background: var(--gray-100);
+                border-color: var(--gray-700);
+            }
+            
+            .info-card-label,
+            .stat-card-label {
+                color: var(--gray-800);
+            }
+            
+            .info-card-sub,
+            .stat-card-sub {
+                color: var(--gray-700);
+            }
+            
+            .header-badge {
+                background: var(--gray-100);
+            }
+            
+            .badge-text {
+                color: var(--brazil-green);
+            }
+        }
+    </style>
+    
+    <link rel="icon" type="image/x-icon" href="/static/img/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Navegação -->
+    <nav class="nav-bar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">SB</a>
+            <div class="nav-links">
+                <a href="/" class="nav-link"><i></i> INÍCIO</a>
+                <a href="/#search" class="nav-link"><i></i> BUSCAR TIME</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HEADER SÉRIE A - VERDE E AMARELO -->
+    <header class="page-header serie-a">
+        <div class="header-bg-pattern"></div>
+        <div class="header-content">
+            <div class="header-trophy">🏆</div>
+            <h1 class="header-title">
+                <span class="title-line">BRASILEIRÃO</span>
+                <span class="title-highlight">SÉRIE A 2026</span>
+            </h1>
+            <p class="header-subtitle">PRIMEIRA DIVISÃO • TEMPORADA 2026</p>
+            <div class="header-badge">
+                <span class="badge-text">CAMPEONATO BRASILEIRO SÉRIE A</span>
+                <span class="badge-year">2026</span>
+            </div>
+        </div>
+        <div class="header-flags">
+            <div class="flag flag-green"></div>
+            <div class="flag flag-yellow"></div>
+            <div class="flag flag-blue"></div>
+            <div class="flag flag-green"></div>
+            <div class="flag flag-yellow"></div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- INFO CARDS - UMA LINHA -->
+        <div class="info-cards-row">
+            <!-- Card 1: Times -->
+            <div class="info-card-horizontal">
+                <div class="info-card-icon">⚽</div>
+                <div class="info-card-content">
+                    <div class="info-card-label">Times</div>
+                    <div class="info-card-value">20</div>
+                    <div class="info-card-sub">Clubes participantes</div>
+                </div>
+                <div class="info-card-glow"></div>
+            </div>
+            
+            <!-- Card 2: Rodadas -->
+            <div class="info-card-horizontal">
+                <div class="info-card-icon">📅</div>
+                <div class="info-card-content">
+                    <div class="info-card-label">Rodadas</div>
+                    <div class="info-card-value">38</div>
+                    <div class="info-card-sub">Total na temporada</div>
+                </div>
+                <div class="info-card-glow"></div>
+            </div>
+            
+            <!-- Card 3: Campeão -->
+            <div class="info-card-horizontal">
+                <div class="info-card-icon">🏆</div>
+                <div class="info-card-content">
+                    <div class="info-card-label">Campeão</div>
+                    <div class="info-card-value">2026</div>
+                    <div class="info-card-sub">Em disputa</div>
+                </div>
+                <div class="info-card-glow"></div>
+            </div>
+            
+            <!-- Card 4: Rodada Atual -->
+            <div class="info-card-horizontal">
+                <div class="info-card-icon">⚡</div>
+                <div class="info-card-content">
+                    <div class="info-card-label">Rodada Atual</div>
+                    <div class="info-card-value">5</div>
+                    <div class="info-card-sub">Em andamento</div>
+                </div>
+                <div class="info-card-glow"></div>
+            </div>
+        </div>
+
+        <!-- TABELA SOFASCORE SÉRIE A -->
+        <div class="tabela-section">
+            <h2 class="section-title-large">
+                <i>🏆</i> CLASSIFICAÇÃO - SÉRIE A 2026
+            </h2>
+            
+            <div class="widget-container" id="widgetContainer">
+                <div class="widget-header">
+                    <div class="widget-title">
+                        <span>BRASILEIRÃO 2026</span>
+                        <span>SÉRIE A</span>
+                    </div>
+                    <div class="widget-update">
+                        <i>⚡</i>
+                        <span>Atualizado em tempo real</span>
+                    </div>
+                </div>
+
+                <div class="loading-overlay" id="loadingOverlay">
+                    <div class="loading-spinner"></div>
+                    <div class="loading-text">
+                        CARREGANDO <span>SÉRIE A 2026</span>
+                    </div>
+                </div>
+
+                <!-- WIDGET SOFASCORE SÉRIE A -->
+                <iframe id="sofa-standings-embed-83-87678" 
+                        class="sofascore-iframe"
+                        src="https://widgets.sofascore.com/pt-BR/embed/tournament/83/season/87678/standings/Brasileiro%20Serie%20A%202026?widgetTitle=Brasileiro%20Serie%20A%202026&showCompetitionLogo=true" 
+                        frameborder="0" 
+                        scrolling="no"
+                        title="Classificação Série A 2026 - Sofascore"
+                        loading="lazy"
+                        onload="hideLoading()">
+                </iframe>
+
+                <div class="widget-footer">
+                    <div class="sofascore-credits">
+                        Classificação fornecida por 
+                        <a target="_blank" 
+                           href="https://www.sofascore.com/pt/football/tournament/brazil/brasileirao-serie-a/325#id:87678" 
+                           class="sofascore-link">
+                            Sofascore
+                        </a>
+                    </div>
+                    <div class="widget-update">
+                        <span>⚽ Rodada 5</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- WIDGET SOFASCORE - TIME DA SEMANA -->
+        <div class="tabela-section">
+            <h2 class="section-title-large">
+                <i>⭐</i> TIME DA SEMANA - RODADA 5
+            </h2>
+            
+            <div class="widget-container sofascore-widget">
+                <div class="widget-header sofascore-header">
+                    <div class="widget-title">
+                        <span>MELHORES DA RODADA</span>
+                        <span>SOFASCORE</span>
+                    </div>
+                    <div class="widget-update">
+                        <i>⚡</i>
+                        <span>Atualizado após cada rodada</span>
+                    </div>
+                </div>
+
+                <!-- Embed Sofascore Time da Semana -->
+                <div class="sofascore-container">
+                    <iframe id="sofa-totw-embed-325-87678-23813" 
+                            class="totw-iframe"
+                            src="https://widgets.sofascore.com/pt-BR/embed/unique-tournament/325/season/87678/round/23813/teamOfTheWeek?showCompetitionLogo=true&widgetTheme=light&widgetTitle=Brasileir%C3%A3o%20Betano" 
+                            frameBorder="0" 
+                            scrolling="no"
+                            title="Time da Semana - Sofascore"
+                            loading="lazy">
+                    </iframe>
+                </div>
+
+                <div class="widget-footer">
+                    <div class="sofascore-credits">
+                        Time da semana fornecido por 
+                        <a target="_blank" 
+                           href="https://www.sofascore.com/pt/football/tournament/brazil/brasileirao-serie-a/325#id:87678" 
+                           class="sofascore-link">
+                            Sofascore
+                        </a>
+                    </div>
+                    <div class="widget-update">
+                        <span>⚽ Rodada 5</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ESTATÍSTICAS 2026 -->
+        <div class="stats-section">
+            <h2 class="section-title-large">
+                <i>📊</i> ESTATÍSTICAS 2026
+            </h2>
+            
+            <div class="stats-row">
+                <!-- Card 1: Gols Marcados -->
+                <div class="stat-card-horizontal">
+                    <div class="stat-card-icon">⚽</div>
+                    <div class="stat-card-content">
+                        <div class="stat-card-label">GOLS MARCADOS</div>
+                        <div class="stat-card-value">43</div>
+                        <div class="stat-card-sub">Média 2.3 por jogo</div>
+                    </div>
+                    <div class="stat-card-glow"></div>
+                </div>
+                
+                <!-- Card 2: Média de Gols -->
+                <div class="stat-card-horizontal">
+                    <div class="stat-card-icon">📊</div>
+                    <div class="stat-card-content">
+                        <div class="stat-card-label">MÉDIA DE GOLS</div>
+                        <div class="stat-card-value">2.3</div>
+                        <div class="stat-card-sub">Total: 43 gols</div>
+                    </div>
+                    <div class="stat-card-glow"></div>
+                </div>
+                
+                <!-- Card 3: Vitórias em Casa -->
+                <div class="stat-card-horizontal">
+                    <div class="stat-card-icon">🏠</div>
+                    <div class="stat-card-content">
+                        <div class="stat-card-label">VITÓRIAS EM CASA</div>
+                        <div class="stat-card-value">12</div>
+                        <div class="stat-card-sub">60% aproveitamento</div>
+                    </div>
+                    <div class="stat-card-glow"></div>
+                </div>
+                
+                <!-- Card 4: Vitórias Fora -->
+                <div class="stat-card-horizontal">
+                    <div class="stat-card-icon">✈️</div>
+                    <div class="stat-card-content">
+                        <div class="stat-card-label">VITÓRIAS FORA</div>
+                        <div class="stat-card-value">8</div>
+                        <div class="stat-card-sub">40% aproveitamento</div>
+                    </div>
+                    <div class="stat-card-glow"></div>
+                </div>
+            </div>
+        </div>
+            
+        <!-- Botões -->
+        <div class="action-buttons">
+            <a href="/tabela2026_serie_b" class="btn">VER SÉRIE B →</a>
+            <a href="/" class="btn btn-primary">PÁGINA INICIAL</a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="page-footer">
+        <div class="footer-links">
+            <a href="/" class="footer-link">INÍCIO</a>
+            <a href="/tabela2026" class="footer-link">SÉRIE A 2026</a>
+            <a href="/tabela2026_serie_b" class="footer-link">SÉRIE B 2026</a>
+            <a href="/#search" class="footer-link">PESQUISAR</a>
+        </div>
+        <p>Desenvolvido por <strong>Joaquim</strong> © 2026</p>
+    </footer>
+
+    <script>
+        function updateScrollProgress() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('scrollProgress').style.width = scrolled + '%';
+        }
+
+        window.addEventListener('scroll', updateScrollProgress);
+
+        function hideLoading() {
+            const overlay = document.getElementById('loadingOverlay');
+            if (overlay) {
+                overlay.classList.add('hidden');
+            }
+        }
+
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                hideLoading();
+            }, 1000);
+        });
+
+        setTimeout(() => {
+            hideLoading();
+        }, 5000);
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.info-card-horizontal, .stat-card-horizontal').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
