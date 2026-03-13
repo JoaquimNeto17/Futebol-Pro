@@ -906,6 +906,26 @@
             border: 2px solid var(--gray-300);
         }
 
+        .totw-credits {
+            font-size: 12px;
+            font-family: var(--font-mono);
+            color: var(--gray-600);
+            padding: var(--space-sm) var(--space-xl);
+            background: var(--gray-100);
+            border-top: 1px solid var(--gray-300);
+            text-align: left;
+        }
+
+        .totw-credits a {
+            color: var(--brazil-green);
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .totw-credits a:hover {
+            text-decoration: underline;
+        }
+
         /* ===== BOTÕES ===== */
         .action-buttons {
             display: flex;
@@ -1436,7 +1456,7 @@
                 <div class="info-card-icon">⚡</div>
                 <div class="info-card-content">
                     <div class="info-card-label">Rodada Atual</div>
-                    <div class="info-card-value">5</div>
+                    <div class="info-card-value"></div>
                     <div class="info-card-sub">Em andamento</div>
                 </div>
                 <div class="info-card-glow"></div>
@@ -1495,10 +1515,10 @@
             </div>
         </div>
 
-        <!-- WIDGET SOFASCORE - TIME DA SEMANA -->
+        <!-- WIDGET SOFASCORE - TIME DA RODADA -->
         <div class="tabela-section">
             <h2 class="section-title-large">
-                <i>⭐</i> TIME DA SEMANA - RODADA 5
+                <i>⭐</i> TIME DA RODADA
             </h2>
             
             <div class="widget-container sofascore-widget">
@@ -1513,30 +1533,27 @@
                     </div>
                 </div>
 
-                <!-- Embed Sofascore Time da Semana -->
+                <!-- Embed Sofascore Time da Rodada -->
                 <div class="sofascore-container">
-                    <iframe id="sofa-totw-embed-325-87678-23813" 
-                            class="totw-iframe"
-                            src="https://widgets.sofascore.com/pt-BR/embed/unique-tournament/325/season/87678/round/23813/teamOfTheWeek?showCompetitionLogo=true&widgetTheme=light&widgetTitle=Brasileir%C3%A3o%20Betano" 
+                    <iframe id="sofa-totw-embed-325-87678-24793" 
+                            width="100%" 
+                            height="598" 
+                            style="display:block;max-width:700px;border:2px solid var(--gray-300);"
+                            src="https://widgets.sofascore.com/pt-BR/embed/unique-tournament/325/season/87678/round/24793/teamOfTheWeek?showCompetitionLogo=true&widgetTheme=light&widgetTitle=Brasileir%C3%A3o%20Betano" 
                             frameBorder="0" 
                             scrolling="no"
-                            title="Time da Semana - Sofascore"
+                            title="Time da Rodada - Sofascore"
                             loading="lazy">
                     </iframe>
                 </div>
 
-                <div class="widget-footer">
-                    <div class="sofascore-credits">
-                        Time da semana fornecido por 
-                        <a target="_blank" 
-                           href="https://www.sofascore.com/pt/football/tournament/brazil/brasileirao-serie-a/325#id:87678" 
-                           class="sofascore-link">
-                            Sofascore
-                        </a>
-                    </div>
-                    <div class="widget-update">
-                        <span>⚽ Rodada 5</span>
-                    </div>
+                <div class="totw-credits">
+                    Time da rodada fornecido por 
+                    <a target="_blank" 
+                       href="https://www.sofascore.com/pt/football/tournament/brazil/brasileirao-serie-a/325#id:87678" 
+                       class="sofascore-link">
+                        Sofascore
+                    </a>
                 </div>
             </div>
         </div>

@@ -2,29 +2,30 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>404 - Página não encontrada | Scout Brasil</title>
     <link rel="icon" type="image/x-icon" href="/static/img/logo.png">
     <link rel="stylesheet" href="/static/style.css">
     <style>
         .error-box {
             text-align: center;
-            padding: 60px 20px;
-            max-width: 600px;
+            padding: clamp(2rem, 8vw, 60px) clamp(1rem, 5vw, 20px);
+            max-width: min(90%, 600px);
             margin: 40px auto;
             background: var(--white);
             border: 2px solid var(--black);
         }
         
         .error-code {
-            font-size: 80px;
+            font-size: clamp(3rem, 15vw, 80px);
             font-weight: bold;
             color: var(--brazil-green);
             margin-bottom: 20px;
+            line-height: 1;
         }
         
         .error-message {
-            font-size: 24px;
+            font-size: clamp(1.2rem, 5vw, 24px);
             margin-bottom: 30px;
             color: var(--black);
         }
@@ -32,22 +33,34 @@
         .error-text {
             color: var(--gray-600);
             margin-bottom: 30px;
+            font-size: clamp(0.875rem, 3vw, var(--font-size-base));
         }
         
         .back-btn {
             display: inline-block;
-            padding: 12px 30px;
+            padding: clamp(0.75rem, 3vw, 12px) clamp(1.5rem, 5vw, 30px);
             background: var(--black);
             color: var(--white);
             text-decoration: none;
             border: 2px solid var(--black);
             transition: 0.3s;
             font-weight: 500;
+            font-size: clamp(0.875rem, 3vw, var(--font-size-base));
         }
         
         .back-btn:hover {
             background: transparent;
             color: var(--black);
+        }
+        
+        @media (max-width: 480px) {
+            .error-box {
+                margin: 20px auto;
+            }
+            
+            .back-btn {
+                width: 80%;
+            }
         }
     </style>
 </head>

@@ -56,7 +56,7 @@
     --gradient-gray: linear-gradient(135deg, var(--gray-100), var(--gray-300));
     --gradient-dark: linear-gradient(135deg, var(--gray-800), var(--gray-900));
     
-    /* Espaçamentos */
+    /* Espaçamentos - Usando REM para melhor responsividade */
     --space-xs: 0.5rem;
     --space-sm: 0.75rem;
     --space-md: 1rem;
@@ -65,7 +65,7 @@
     --space-2xl: 2.5rem;
     --space-3xl: 3rem;
     
-    /* Tipografia */
+    /* Tipografia - Usando REM para melhor responsividade */
     --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --font-display: 'Playfair Display', Georgia, serif;
     --font-mono: 'JetBrains Mono', 'Courier New', monospace;
@@ -140,6 +140,20 @@
 
 html {
     scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+/* Ajuste de font-size para telas menores */
+@media (max-width: 768px) {
+    html {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    html {
+        font-size: 14px;
+    }
 }
 
 body {
@@ -150,6 +164,7 @@ body {
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     position: relative;
+    overflow-x: hidden;
 }
 
 /* Progress bar de scroll com cores do Brasil */
@@ -173,7 +188,7 @@ body {
 /* ===== HEADER MINIMALISTA ===== */
 .header {
     background: var(--white);
-    padding: var(--space-3xl) var(--space-xl);
+    padding: clamp(2rem, 5vw, var(--space-3xl)) clamp(1rem, 3vw, var(--space-xl));
     text-align: center;
     position: relative;
     border-bottom: 2px solid var(--black);
@@ -198,7 +213,7 @@ body {
 
 .header h1 {
     font-family: var(--font-display);
-    font-size: var(--font-size-5xl);
+    font-size: clamp(2rem, 8vw, var(--font-size-5xl));
     font-weight: 500;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -219,7 +234,7 @@ body {
 }
 
 .header p {
-    font-size: var(--font-size-lg);
+    font-size: clamp(0.875rem, 3vw, var(--font-size-lg));
     color: var(--gray-600);
     font-weight: 300;
     letter-spacing: 2px;
@@ -229,18 +244,19 @@ body {
 
 /* ===== CONTAINER ===== */
 .container {
-    max-width: 1280px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: var(--space-xl);
+    padding: clamp(1rem, 3vw, var(--space-xl));
     position: relative;
+    width: 100%;
 }
 
 /* ===== SEARCH SECTION ===== */
 .search-section {
     background: var(--white);
     border-radius: 0;
-    padding: var(--space-2xl);
-    margin: var(--space-2xl) 0;
+    padding: clamp(1.5rem, 4vw, var(--space-2xl));
+    margin: clamp(1.5rem, 4vw, var(--space-2xl)) 0;
     border: 2px solid var(--black);
     box-shadow: var(--shadow-md);
     position: relative;
@@ -259,15 +275,16 @@ body {
 }
 
 .search-title {
-    font-size: var(--font-size-2xl);
+    font-size: clamp(1.25rem, 4vw, var(--font-size-2xl));
     font-weight: 400;
-    margin-bottom: var(--space-xl);
+    margin-bottom: clamp(1rem, 3vw, var(--space-xl));
     color: var(--black);
     letter-spacing: 4px;
     text-transform: uppercase;
     display: flex;
     align-items: center;
     gap: var(--space-md);
+    flex-wrap: wrap;
 }
 
 .search-title i {
@@ -279,6 +296,7 @@ body {
 .search-title::after {
     content: '';
     flex: 1;
+    min-width: 50px;
     height: 2px;
     background: linear-gradient(90deg, 
         var(--brazil-green), 
@@ -308,6 +326,7 @@ body {
     transition: var(--transition-base);
     background: transparent;
     color: var(--text-primary);
+    width: 100%;
 }
 
 .search-input:focus {
@@ -323,7 +342,7 @@ body {
 }
 
 .search-btn {
-    padding: var(--space-lg) var(--space-2xl);
+    padding: var(--space-lg) clamp(1.5rem, 4vw, var(--space-2xl));
     background: transparent;
     color: var(--black);
     border: 2px solid var(--black);
@@ -338,6 +357,12 @@ body {
     overflow: hidden;
     z-index: 1;
     min-width: 200px;
+}
+
+@media (max-width: 640px) {
+    .search-btn {
+        min-width: 100%;
+    }
 }
 
 .search-btn::after {
@@ -368,8 +393,8 @@ body {
 /* ===== TEAM RESULT ===== */
 .team-result {
     background: var(--white);
-    padding: var(--space-2xl);
-    margin: var(--space-2xl) 0;
+    padding: clamp(1.5rem, 4vw, var(--space-2xl));
+    margin: clamp(1.5rem, 4vw, var(--space-2xl)) 0;
     border: 2px solid var(--black);
     box-shadow: var(--shadow-lg);
     transition: var(--transition-base);
@@ -403,20 +428,27 @@ body {
 /* ===== TEAM HEADER ===== */
 .team-header {
     display: flex;
-    gap: var(--space-2xl);
+    gap: clamp(1rem, 4vw, var(--space-2xl));
     align-items: center;
     flex-wrap: wrap;
     margin-bottom: var(--space-xl);
     padding-bottom: var(--space-xl);
     border-bottom: 2px solid var(--black);
     background: var(--bg-secondary);
-    padding: var(--space-xl);
+    padding: clamp(1rem, 3vw, var(--space-xl));
+}
+
+@media (max-width: 768px) {
+    .team-header {
+        flex-direction: column;
+        text-align: center;
+    }
 }
 
 /* ===== LOGO/TIMES - ANIMAÇÃO E FUNDO TRANSPARENTE ===== */
 .team-crest {
-    width: 140px;
-    height: 140px;
+    width: clamp(100px, 20vw, 140px);
+    height: clamp(100px, 20vw, 140px);
     border-radius: 50%;
     background: transparent;
     border: 2px solid var(--black);
@@ -503,32 +535,10 @@ body {
         drop-shadow(0 0 5px rgba(255, 223, 0, 0.5));
 }
 
-@keyframes crestAppear {
-    0% {
-        opacity: 0;
-        transform: scale(0.5) rotate(-180deg);
-    }
-    70% {
-        transform: scale(1.1) rotate(5deg);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1) rotate(0);
-    }
-}
-
-.team-crest {
-    animation: crestAppear 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-}
-
-.team-crest:nth-child(1) { animation-delay: 0.1s; }
-.team-crest:nth-child(2) { animation-delay: 0.2s; }
-.team-crest:nth-child(3) { animation-delay: 0.3s; }
-
 /* ===== TEAM NAME ===== */
 .team-name {
     font-family: var(--font-display);
-    font-size: var(--font-size-5xl);
+    font-size: clamp(1.8rem, 6vw, var(--font-size-5xl));
     font-weight: 500;
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -550,13 +560,20 @@ body {
     box-shadow: 0 0 10px var(--brazil-yellow);
 }
 
+@media (max-width: 768px) {
+    .team-name::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
 /* ===== TEAM DETAILS ===== */
 .team-details {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-md) var(--space-xl);
+    gap: clamp(0.5rem, 2vw, var(--space-md)) clamp(1rem, 3vw, var(--space-xl));
     background: var(--gray-100);
-    padding: var(--space-xl);
+    padding: clamp(1rem, 3vw, var(--space-xl));
     border: 2px solid var(--black);
 }
 
@@ -572,6 +589,13 @@ body {
     gap: var(--space-sm);
     color: var(--text-secondary);
     font-weight: 300;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 480px) {
+    .team-details p {
+        justify-content: center;
+    }
 }
 
 .team-details strong {
@@ -589,7 +613,7 @@ body {
 /* ===== DESCRIPTION ===== */
 .team-description {
     background: var(--gray-100);
-    padding: var(--space-xl);
+    padding: clamp(1rem, 3vw, var(--space-xl));
     margin-bottom: var(--space-xl);
     border: 2px solid var(--black);
     line-height: 1.8;
@@ -601,6 +625,7 @@ body {
 .team-description p {
     max-width: 80ch;
     margin: 0 auto;
+    font-size: clamp(0.875rem, 2vw, var(--font-size-base));
 }
 
 .team-description::before {
@@ -618,7 +643,7 @@ body {
 .content-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--space-xl);
+    gap: clamp(1rem, 3vw, var(--space-xl));
 }
 
 @media (max-width: 900px) {
@@ -631,7 +656,7 @@ body {
 .games-section,
 .titles-section {
     background: var(--gray-50);
-    padding: var(--space-xl);
+    padding: clamp(1rem, 3vw, var(--space-xl));
     border: 2px solid var(--black);
     opacity: 0;
     transform: translateY(30px);
@@ -661,7 +686,7 @@ body {
 }
 
 .section-title {
-    font-size: var(--font-size-xl);
+    font-size: clamp(1.1rem, 3vw, var(--font-size-xl));
     font-weight: 400;
     margin-bottom: var(--space-lg);
     padding-bottom: var(--space-sm);
@@ -672,6 +697,7 @@ body {
     display: flex;
     align-items: center;
     gap: var(--space-sm);
+    flex-wrap: wrap;
 }
 
 .section-title i {
@@ -683,7 +709,7 @@ body {
 /* ===== GAME CARD ===== */
 .game-card {
     background: var(--white);
-    padding: var(--space-lg);
+    padding: clamp(0.875rem, 2vw, var(--space-lg));
     margin-bottom: var(--space-md);
     border: 1px solid var(--gray-400);
     transition: var(--transition-base);
@@ -730,6 +756,8 @@ body {
     font-weight: 500;
     margin-bottom: var(--space-xs);
     color: var(--text-primary);
+    font-size: clamp(0.875rem, 2vw, var(--font-size-base));
+    word-break: break-word;
 }
 
 .match strong {
@@ -762,13 +790,20 @@ body {
 /* ===== TITLES GRID ===== */
 .titles-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: var(--space-lg);
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: clamp(0.75rem, 2vw, var(--space-lg));
+}
+
+@media (max-width: 480px) {
+    .titles-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-sm);
+    }
 }
 
 .title-card {
     background: var(--white);
-    padding: var(--space-xl) var(--space-lg);
+    padding: clamp(0.875rem, 2vw, var(--space-xl)) clamp(0.75rem, 2vw, var(--space-lg));
     text-align: center;
     border: 1px solid var(--gray-400);
     transition: var(--transition-base);
@@ -817,13 +852,13 @@ body {
 
 /* ===== TITLE IMAGE - FUNDO TRANSPARENTE ===== */
 .title-image {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto var(--space-lg);
+    width: clamp(60px, 15vw, 80px);
+    height: clamp(60px, 15vw, 80px);
+    margin: 0 auto clamp(0.75rem, 2vw, var(--space-lg));
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--space-md);
+    padding: clamp(0.5rem, 1.5vw, var(--space-md));
     transition: var(--transition-base);
     border-radius: 50%;
     background: transparent;
@@ -846,9 +881,10 @@ body {
 
 .title-name {
     font-weight: 500;
-    font-size: var(--font-size-sm);
+    font-size: clamp(0.75rem, 2vw, var(--font-size-sm));
     color: var(--text-primary);
     margin-bottom: var(--space-xs);
+    word-break: break-word;
 }
 
 .title-year {
@@ -872,16 +908,17 @@ body {
 .no-data {
     text-align: center;
     color: var(--text-tertiary);
-    padding: var(--space-xl);
+    padding: clamp(1rem, 3vw, var(--space-xl));
     background: var(--white);
     border: 2px solid var(--black);
     font-style: italic;
     font-weight: 300;
     font-family: var(--font-mono);
+    font-size: clamp(0.875rem, 2vw, var(--font-size-base));
 }
 
 .no-data i {
-    font-size: 40px;
+    font-size: clamp(2rem, 6vw, 40px);
     display: block;
     margin-bottom: var(--space-md);
     color: var(--brazil-yellow);
@@ -891,12 +928,12 @@ body {
 /* ===== FOOTER ===== */
 .footer {
     text-align: center;
-    padding: var(--space-xl);
-    margin-top: var(--space-3xl);
+    padding: clamp(1rem, 3vw, var(--space-xl));
+    margin-top: clamp(2rem, 5vw, var(--space-3xl));
     border-top: 2px solid var(--black);
     color: var(--text-tertiary);
     background: var(--white);
-    font-size: var(--font-size-sm);
+    font-size: clamp(0.75rem, 2vw, var(--font-size-sm));
     font-weight: 300;
     letter-spacing: 2px;
     position: relative;
@@ -919,6 +956,8 @@ body {
 .footer p {
     position: relative;
     display: inline-block;
+    max-width: 90%;
+    margin: 0 auto;
 }
 
 .footer p::before,
@@ -931,6 +970,13 @@ body {
     display: inline-block;
 }
 
+@media (max-width: 480px) {
+    .footer p::before,
+    .footer p::after {
+        margin: 0 var(--space-xs);
+    }
+}
+
 .footer p::after {
     animation-delay: 0.5s;
 }
@@ -941,6 +987,15 @@ body {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     font-weight: 600;
+}
+
+.footer a {
+    transition: var(--transition-base);
+}
+
+.footer a:hover {
+    opacity: 0.8;
+    text-decoration: underline;
 }
 
 /* ===== SCROLLBAR MINIMALISTA ===== */
@@ -1180,67 +1235,102 @@ body {
     animation: spinner 0.8s linear infinite;
 }
 
-/* ===== RESPONSIVE ===== */
+/* ===== RESPONSIVE GLOBAL ===== */
+
+/* Telas muito grandes (4K) */
+@media (min-width: 2560px) {
+    .container {
+        max-width: 2000px;
+    }
+    
+    html {
+        font-size: 18px;
+    }
+}
+
+/* Desktop grande */
+@media (max-width: 1440px) {
+    .container {
+        max-width: 1200px;
+    }
+}
+
+/* Desktop médio */
+@media (max-width: 1280px) {
+    .container {
+        max-width: 1100px;
+    }
+}
+
+/* Tablet landscape */
 @media (max-width: 1024px) {
     .container {
-        padding: var(--space-lg);
-    }
-    
-    .team-name {
-        font-size: var(--font-size-4xl);
-    }
-}
-
-@media (max-width: 768px) {
-    .header h1 {
-        font-size: var(--font-size-4xl);
-    }
-    
-    .team-header {
-        flex-direction: column;
-        text-align: center;
-        padding: var(--space-lg);
-    }
-    
-    .team-details {
-        width: 100%;
-    }
-    
-    .team-details p {
-        justify-content: center;
-    }
-    
-    .team-name::after {
-        left: 50%;
-        transform: translateX(-50%);
-    }
-    
-    .titles-grid {
-        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-        gap: var(--space-md);
-    }
-}
-
-@media (max-width: 480px) {
-    .header {
-        padding: var(--space-2xl) var(--space-md);
-    }
-    
-    .header h1 {
-        font-size: var(--font-size-3xl);
-    }
-    
-    .team-name {
-        font-size: var(--font-size-3xl);
+        max-width: 900px;
     }
     
     .team-crest {
         width: 120px;
         height: 120px;
     }
+}
+
+/* Tablet portrait */
+@media (max-width: 900px) {
+    .container {
+        max-width: 800px;
+    }
     
+    .content-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+    }
+}
+
+/* Tablet pequeno / Mobile grande */
+@media (max-width: 768px) {
+    .container {
+        padding: var(--space-lg);
+    }
+    
+    .team-crest {
+        width: 110px;
+        height: 110px;
+    }
+    
+    .team-name {
+        text-align: center;
+        width: 100%;
+    }
+}
+
+/* Mobile médio */
+@media (max-width: 640px) {
+    .team-details {
+        grid-template-columns: 1fr;
+    }
+    
+    .team-details p {
+        justify-content: flex-start;
+    }
+}
+
+/* Mobile pequeno */
+@media (max-width: 480px) {
     .container {
         padding: var(--space-md);
+    }
+    
+    .header {
+        padding: var(--space-2xl) var(--space-md);
+    }
+    
+    .team-crest {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .team-name {
+        font-size: var(--font-size-3xl);
     }
     
     .search-section,
@@ -1255,32 +1345,70 @@ body {
     
     .titles-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-sm);
+    }
+    
+    .title-image {
+        width: 60px;
+        height: 60px;
     }
     
     .search-btn {
-        min-width: auto;
-        padding: var(--space-lg) var(--space-xl);
+        min-width: 100%;
     }
     
     .footer p::before,
     .footer p::after {
         margin: 0 var(--space-xs);
     }
+    
+    .section-title {
+        letter-spacing: 2px;
+    }
+    
+    .section-title i {
+        font-size: 1.2rem;
+    }
 }
 
-/* Tablet landscape */
+/* Mobile muito pequeno */
+@media (max-width: 360px) {
+    .team-details p {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-xs);
+    }
+    
+    .team-details strong {
+        min-width: auto;
+    }
+    
+    .titles-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .game-card {
+        padding: var(--space-sm);
+    }
+    
+    .match {
+        font-size: 0.8rem;
+    }
+}
+
+/* Tablet landscape específico */
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
     .content-grid {
         gap: var(--space-md);
     }
     
     .team-crest {
-        width: 130px;
-        height: 130px;
+        width: 110px;
+        height: 110px;
     }
 }
 
-/* ===== ACESSIBILIDADE ===== */
+/* Acessibilidade - reduzir movimento */
 @media (prefers-reduced-motion: reduce) {
     * {
         animation-duration: 0.01ms !important;

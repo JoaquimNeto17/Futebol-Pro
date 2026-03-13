@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>Scout Brasil - Informações, Tabelas e Resultados do Brasileirão 2026</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="icon" type="image/x-icon" href="/static/img/logo.png">
@@ -10,6 +10,97 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Ajustes responsivos adicionais para o index */
+        .search-section {
+            position: relative;
+        }
+        
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            border: 2px solid var(--black);
+            border-top: none;
+            z-index: 100;
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .search-suggestions.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .suggestion-item {
+            padding: var(--space-md) var(--space-lg);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            font-family: var(--font-main);
+            border-bottom: 1px solid var(--gray-300);
+            font-size: clamp(0.875rem, 2vw, var(--font-size-base));
+        }
+        
+        .suggestion-item:hover {
+            background: var(--gray-200);
+            padding-left: var(--space-xl);
+            border-left: 4px solid var(--brazil-green);
+        }
+        
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+        
+        .suggestion-item.loading,
+        .suggestion-item.error {
+            cursor: default;
+            color: var(--gray-600);
+        }
+        
+        .suggestion-item.loading:hover,
+        .suggestion-item.error:hover {
+            background: var(--white);
+            padding-left: var(--space-lg);
+            border-left: none;
+        }
+        
+        .suggestion-item.error {
+            color: #dc3545;
+        }
+        
+        @media (max-width: 480px) {
+            .suggestion-item {
+                padding: var(--space-sm) var(--space-md);
+            }
+            
+            .suggestion-item:hover {
+                padding-left: var(--space-lg);
+            }
+        }
+        
+        /* Ajustes para os links de navegação no resultado vazio */
+        .team-result a {
+            transition: var(--transition-base);
+            display: inline-block;
+            margin: var(--space-xs);
+        }
+        
+        .team-result a:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        @media (max-width: 480px) {
+            .team-result a {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 <body>
     <header class="header">
@@ -33,11 +124,11 @@
 
         <!-- Links para as tabelas -->
         <div style="display: flex; gap: var(--space-md); justify-content: center; margin: var(--space-2xl) 0; flex-wrap: wrap;">
-            <a href="/tabela2026" style="display: flex; align-items: center; gap: var(--space-sm); padding: var(--space-md) var(--space-xl); background: var(--brazil-green); color: var(--white); text-decoration: none; font-family: var(--font-mono); letter-spacing: 2px; border: 2px solid var(--black); transition: var(--transition-base);">
+            <a href="/tabela2026" style="display: flex; align-items: center; gap: var(--space-sm); padding: var(--space-md) var(--space-xl); background: var(--brazil-green); color: var(--white); text-decoration: none; font-family: var(--font-mono); letter-spacing: 2px; border: 2px solid var(--black); transition: var(--transition-base); width: fit-content;">
                 <img src="/static/img/A.png" alt="Série A" style="width: 30px; height: 30px; object-fit: contain;">
                 <span>🏆 SÉRIE A 2026</span>
             </a>
-            <a href="/tabela2026_serie_b" style="display: flex; align-items: center; gap: var(--space-sm); padding: var(--space-md) var(--space-xl); background: var(--brazil-blue); color: var(--white); text-decoration: none; font-family: var(--font-mono); letter-spacing: 2px; border: 2px solid var(--black); transition: var(--transition-base);">
+            <a href="/tabela2026_serie_b" style="display: flex; align-items: center; gap: var(--space-sm); padding: var(--space-md) var(--space-xl); background: var(--brazil-blue); color: var(--white); text-decoration: none; font-family: var(--font-mono); letter-spacing: 2px; border: 2px solid var(--black); transition: var(--transition-base); width: fit-content;">
                 <img src="/static/img/B.png" alt="Série B" style="width: 30px; height: 30px; object-fit: contain;">
                 <span>⚽ SÉRIE B 2026</span>
             </a>
@@ -116,13 +207,13 @@
             </div>
         </div>
         {% else %}
-        <div class="team-result" style="text-align: center; padding: 60px;">
-            <p style="font-size: 3rem;">⚽</p>
-            <p style="font-size: 1.5rem;">Pesquise um time para ver as informações</p>
+        <div class="team-result" style="text-align: center; padding: clamp(2rem, 5vw, 60px);">
+            <p style="font-size: clamp(2rem, 8vw, 3rem);">⚽</p>
+            <p style="font-size: clamp(1.2rem, 4vw, 1.5rem);">Pesquise um time para ver as informações</p>
             <p style="color: var(--gray-500); margin-top: var(--space-md);">Ou confira as tabelas:</p>
             <div style="display: flex; gap: var(--space-md); justify-content: center; margin-top: var(--space-lg); flex-wrap: wrap;">
-                <a href="/tabela2026" style="color: var(--brazil-green); font-weight: 500; padding: var(--space-sm) var(--space-lg); border: 2px solid var(--brazil-green); text-decoration: none;">SÉRIE A 2026</a>
-                <a href="/tabela2026_serie_b" style="color: var(--brazil-blue); font-weight: 500; padding: var(--space-sm) var(--space-lg); border: 2px solid var(--brazil-blue); text-decoration: none;">SÉRIE B 2026</a>
+                <a href="/tabela2026" style="color: var(--brazil-green); font-weight: 500; padding: var(--space-sm) var(--space-lg); border: 2px solid var(--brazil-green); text-decoration: none; display: inline-block; margin: var(--space-xs);">SÉRIE A 2026</a>
+                <a href="/tabela2026_serie_b" style="color: var(--brazil-blue); font-weight: 500; padding: var(--space-sm) var(--space-lg); border: 2px solid var(--brazil-blue); text-decoration: none; display: inline-block; margin: var(--space-xs);">SÉRIE B 2026</a>
             </div>
         </div>
         {% endif %}
@@ -169,6 +260,7 @@
         });
 
         window.addEventListener('load', revealOnScroll);
+        window.addEventListener('resize', revealOnScroll);
 
         // Auto-suggest aprimorado
         function setupAutoSuggest() {
@@ -234,6 +326,14 @@
                     suggestionsDiv.classList.remove('active');
                 }
             });
+            
+            // Fechar sugestões ao pressionar Escape
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    suggestionsDiv.innerHTML = '';
+                    suggestionsDiv.classList.remove('active');
+                }
+            });
         }
 
         setupAutoSuggest();
@@ -245,66 +345,5 @@
             btn.textContent = '';
         });
     </script>
-
-    <style>
-        .search-suggestions {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: var(--white);
-            border: 2px solid var(--black);
-            border-top: none;
-            z-index: 100;
-            max-height: 200px;
-            overflow-y: auto;
-            display: none;
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .search-suggestions.active {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-        
-        .suggestion-item {
-            padding: var(--space-md) var(--space-lg);
-            cursor: pointer;
-            transition: var(--transition-fast);
-            font-family: var(--font-main);
-            border-bottom: 1px solid var(--gray-300);
-        }
-        
-        .suggestion-item:hover {
-            background: var(--gray-200);
-            padding-left: var(--space-xl);
-            border-left: 4px solid var(--brazil-green);
-        }
-        
-        .suggestion-item:last-child {
-            border-bottom: none;
-        }
-        
-        .suggestion-item.loading,
-        .suggestion-item.error {
-            cursor: default;
-            color: var(--gray-600);
-        }
-        
-        .suggestion-item.loading:hover,
-        .suggestion-item.error:hover {
-            background: var(--white);
-            padding-left: var(--space-lg);
-            border-left: none;
-        }
-        
-        .suggestion-item.error {
-            color: #dc3545;
-        }
-        
-        .search-section {
-            position: relative;
-        }
-    </style>
 </body>
 </html>
